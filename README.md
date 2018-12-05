@@ -1,3 +1,9 @@
+# Video App
+
+One of many mini projects that I'll be doing in order to brush up on React concepts. This is a simple application that communicates with a mock backend service in order to render a table showing a list of movies. Users can delete the videos from the table, and the message on the top will update accordingly. Showcases basic state updating concepts and backend data manipulation. The frontend for this application makes use of Bootstrap for its quick and easy out-of-the-box styling.  
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
