@@ -1,9 +1,9 @@
 import React from "react";
 
-const Like = (props) => {
+const Like = ({ liked, onClick }) => {
   let classes = "fa fa-heart";
 
-  if (!props.liked) {
+  if (!liked) {
     classes += "-o";
   }
 
@@ -12,7 +12,7 @@ const Like = (props) => {
       className={classes}
       style={{ cursor: "pointer" }}
       aria-hidden="true"
-      onClick={props.onClick}
+      onClick={onClick}
     />
   );
 };

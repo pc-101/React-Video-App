@@ -1,43 +1,45 @@
-import React from "react";
+import React, { Component } from "react";
 import Like from "./common/like";
+import Table from "./common/table";
 
-const MoviesTable = (props) => {
-  const { movies, onLike, onDelete } = props;
+class MoviesTable extends Component {
+  columns = [
+    { id: 1, path: "title", label: "Title" },
+    { id: 2, path: "genre.name", label: "Genre" },
+    { id: 3, path: "numberInStock", label: "Stock" },
+    { id: 4, path: "dailyRentalRate", label: "Rate" },
+    {
+      key: "like",
+      content: (movie) => (
+        <Like liked={movie.liked} onClick={() => this.props.onLike(movie)} />
+      )
+    },
+    {
+      key: "delete",
+      content: (movie) => (
+        <button
+          className="btn btn-danger btn-sm"
+          onClick={() => this.props.onDelete(movie)}
+        >
+          Delete
+        </button>
+      )
+    }
+  ];
+  render() {
+    const { movies, sortColumn, onSort } = this.props;
 
-  return (
-    <React.Fragment>
-      <table className="table table-striped table-bordered text-center">
-        <thead className="thead-dark">
-          <tr>
-            <th>Title</th>
-            <th>Genre</th>
-            <th>Stock</th>
-            <th>Rate</th>
-            <th />
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {movies.map((movie) => (
-            <tr key={movie._id} className="text-center">
-              <td>{movie.title}</td>
-              <td>{movie.genre.name}</td>
-              <td>{movie.numberInStock}</td>
-              <td>{movie.dailyRentalRate}</td>
-              <td>
-                <Like liked={movie.liked} onClick={() => onLike(movie)} />
-              </td>
-              <td>
-                <button className="btn btn-danger btn-sm" onClick={() => onDelete(movie)}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </React.Fragment>
-  );
-};
+    return (
+      <React.Fragment>
+        <Table
+          columns={this.columns}
+          items={movies}
+          sortColumn={sortColumn}
+          onSort={onSort}
+        />
+      </React.Fragment>
+    );
+  }
+}
 
 export default MoviesTable;
