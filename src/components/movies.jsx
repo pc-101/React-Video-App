@@ -31,7 +31,7 @@ class Movies extends Component {
       pageSize,
       movies: allMovies
     } = this.state;
-    
+
     const filtered =
       currentGenre && currentGenre._id
         ? allMovies.filter((m) => m.genre._id === currentGenre._id)
@@ -80,7 +80,7 @@ class Movies extends Component {
 
     return (
       <div className="row">
-        <div className="col-3 mt-5">
+        <div className="col-3 mt-1">
           <ListGroup
             items={this.state.genres}
             selectedItem={this.state.currentGenre}
@@ -88,7 +88,7 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <p className="p-2">Showing {totalCount} movies in the database:</p>
+          <p>Showing {totalCount} movies in the database:</p>
           <MoviesTable
             movies={movies}
             sortColumn={sortColumn}
