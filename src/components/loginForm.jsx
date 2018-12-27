@@ -21,26 +21,28 @@ class LoginForm extends Component {
   };
 
   validateProperty = ({ name, value }) => {
-    if (name === "username") {
-      if (value.trim() === "") {
-        return "Username is required.";
-      }
-    }
-    if (name === "Password") {
-      if (value.trim() === "") {
-        return "Password is required.";
-      }
-    }
+    const obj = { [name]: value };
+    const schema = { [name]: this.schema[name] };
+
+    const { error } = Joi.validate(obj, schema);
+
+    // If there's an error, we want to just list the first error message rather than all of them
+    return error ? error.details[0].message : null;
   };
   validate = () => {
-    const options = {
-      abortEarly: false
-    };
+    const options = { abortEarly: false };
     const { error } = Joi.validate(this.state.account, this.schema, options);
-    if (!error) return null;
 
+    // If there are no errors, we don't have to do anything else
+    if (!error) {
+      return null;
+    }
+
+    // Else, let's fill up our error object with the errors for the user
     const errors = {};
-    for (let item of error.details) errors[item.path[0]] = item.message;
+    for (let item of error.details) {
+      errors[item.path[0]] = item.message;
+    }
 
     return errors;
   };
@@ -101,7 +103,9 @@ class LoginForm extends Component {
               key={fields.indexOf(field)}
             />
           ))}
-          <button className="btn btn-primary">Login</button>
+          <button disabled={this.validate()} className="btn btn-primary">
+            Login
+          </button>
         </form>
       </div>
     );

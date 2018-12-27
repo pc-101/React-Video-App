@@ -1,7 +1,6 @@
 import React from "react";
 
 const Input = ({ name, label, value, error, onChange }) => {
-  console.log("re-rendered!", error);
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
