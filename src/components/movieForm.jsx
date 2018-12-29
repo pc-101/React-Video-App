@@ -48,7 +48,7 @@ class MovieForm extends Form {
 
     const movie = getMovie(movieId);
     if (!movie) {
-      history.replace("/not-found");
+      return history.replace("/not-found");
     }
     console.log(movie);
 
